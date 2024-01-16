@@ -2,7 +2,7 @@
 
 import sys
 from PIL import Image
-from transforms import change_colors, mirror, grayscale
+from transforms import *
 
 
 def image_to_rgb_array(input_file):
@@ -71,3 +71,15 @@ if __name__ == "__main__":
             final_image_result = change_colors(final_image_result, to_change=(255, 255, 255), to_change_to=(0, 255, 0))
             if index == len(commands) - 1:
                 save_as_jpg(final_image_result, "captura_change_colors.jpg")
+        elif command == "rotate_right":
+            final_image_result = rotate_right(final_image_result)
+            if index == len(commands) - 1:
+                save_as_jpg(final_image_result, "rotate_right.jpg")
+        elif command == "crop":
+            final_image_result = crop(final_image_result, 0, 0, 300, 300)
+            if index == len(commands) - 1:
+                save_as_jpg(final_image_result, "crop.jpg")
+        elif command == "shift":
+            final_image_result = shift(final_image_result, 300, 300)
+            if index == len(commands) - 1:
+                save_as_jpg(final_image_result, "shift.jpg")

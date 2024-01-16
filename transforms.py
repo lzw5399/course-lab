@@ -52,3 +52,56 @@ def grayscale(image: list[list[tuple[int, int, int]]]) -> list[list[tuple[int, i
         gray_image.append(gray_row)
 
     return gray_image
+
+
+# rotate_right 向右翻转
+def rotate_right(image: list[list[tuple[int, int, int]]]) -> list[list[tuple[int, int, int]]]:
+    rotated = []
+    num_rows = len(image)
+    num_cols = len(image[0])
+
+    for j in range(num_cols):
+        rotated.append([])
+        for i in range(num_rows-1, -1, -1):
+            rotated[-1].append(image[i][j])
+
+    return rotated
+
+
+# crop 裁剪
+def crop(image: list[list[tuple[int, int, int]]],
+         x: int, # 开始裁剪的坐标点
+         y: int,
+         width: int, # 开始裁剪的长宽
+         height: int) -> list[list[tuple[int, int, int]]]:
+
+    cropped = []
+    for i in range(y, y + height):
+        cropped.append([])
+        for j in range(x, x + width):
+            cropped[-1].append(image[i][j])
+
+    return cropped
+
+
+# 平移
+def shift(image: list[list[tuple[int, int, int]]],
+          horizontal: int, # 平移的垂直和水平距离
+          vertical: int) -> list[list[tuple[int, int, int]]]:
+    shifted = []
+    num_rows = len(image)
+    num_cols = len(image[0])
+
+    for i in range(num_rows):
+        shifted.append([])
+        for j in range(num_cols):
+            new_i = i + vertical
+            new_j = j + horizontal
+            # 在画布内的用平移的像素代替
+            if 0 <= new_i < num_rows and 0 <= new_j < num_cols:
+                shifted[-1].append(image[new_i][new_j])
+            else:
+                # 其余的用黑色像素点补位
+                shifted[-1].append((0,0,0))
+
+    return shifted
